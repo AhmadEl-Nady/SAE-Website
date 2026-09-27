@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ t.nav_news }} — {{ t.site_name }}{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="shell">
+    <h1 class="page-title">{{ t.news_title }}</h1>
+  </div>
+</section>
+
+<section class="news">
+  <div class="shell">
+    <ul class="news-list">
+      {% for item in news %}
+      <li class="news-item">
+        <p class="news-meta">
+          <time datetime="{{ item.date }}">{{ item.date }}</time>
+          <span class="news-sector">{{ item.sector[lang] }}</span>
+        </p>
+        <h2 class="news-headline">
+          <a href="{{ url_for('news_detail', lang=lang, slug=item.slug) }}">{{ item.title[lang] }}</a>
+        </h2>
+        <p class="news-summary">{{ item.summary[lang] }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}
