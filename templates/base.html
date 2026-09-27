@@ -1,89 +1,108 @@
 <!DOCTYPE html>
-
 <html lang="{{ lang }}" dir="{{ direction }}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>{% block title %}{{ t.site_name }}{% endblock %}</title>
+    <meta name="description" content="SAE - People, Projects & Purpose">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>{% block title %}{{ t.site_name }}{% endblock %}</title>
 
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-```
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
 </head>
 
 <body>
 
-```
-<a class="skip-link" href="#main">
-    {{ 'تخطَّ إلى المحتوى' if lang == 'ar' else 'Skip to content' }}
-</a>
+    <a class="skip-link" href="#main">
+        {{ 'تخطَّ إلى المحتوى' if lang == 'ar' else 'Skip to content' }}
+    </a>
 
-<header class="masthead">
-    <div class="shell masthead-inner">
+    <header class="masthead">
 
-        <a class="brand" href="{{ url_for('home', lang=lang) }}">
-            <span class="brand-mark" aria-hidden="true"></span>
-            <span class="brand-name">{{ t.site_name }}</span>
-        </a>
-
-        <nav class="nav" aria-label="{{ t.nav_home }}">
-
-            <a href="{{ url_for('home', lang=lang) }}">
-                {{ t.nav_home }}
-            </a>
-
-            <a href="{{ url_for('news_list', lang=lang) }}">
-                {{ t.nav_news }}
-            </a>
-
-            <a href="{{ url_for('contact', lang=lang) }}">
-                {{ t.nav_contact }}
-            </a>
+        <div class="shell masthead-inner">
 
             <a
-                class="lang-switch"
-                href="{{ request.path.replace('/' + lang + '/', '/' + other_lang + '/', 1) }}"
+                class="brand"
+                href="{{ url_for('home', lang=lang) }}"
+                aria-label="{{ t.site_name }}"
             >
-                {{ languages[other_lang].name }}
+                <span class="brand-mark" aria-hidden="true"></span>
+
+                <span class="brand-name">
+                    {{ t.site_name }}
+                </span>
             </a>
 
-        </nav>
+            <nav class="nav" aria-label="Main navigation">
 
-    </div>
-</header>
+                <a href="{{ url_for('home', lang=lang) }}">
+                    {{ t.nav_home }}
+                </a>
 
-<main id="main">
-    {% block content %}
-    {% endblock %}
-</main>
+                <a href="{{ url_for('news_list', lang=lang) }}">
+                    {{ t.nav_news }}
+                </a>
 
-<footer class="footer">
+                <a href="{{ url_for('contact', lang=lang) }}">
+                    {{ t.nav_contact }}
+                </a>
 
-    <div class="shell footer-inner">
+                <a
+                    class="lang-switch"
+                    href="{{ request.path.replace('/' + lang + '/', '/' + other_lang + '/', 1) }}"
+                >
+                    {{ languages[other_lang].name }}
+                </a>
 
-        <p class="footer-name">
-            {{ t.site_name }}
-        </p>
+            </nav>
 
-        <p class="footer-address">
-            {{ t.address }}
-        </p>
+        </div>
 
-        <p class="footer-rights">
-            &copy; 2026 &mdash; {{ t.footer_rights }}
-        </p>
+    </header>
 
-    </div>
+    <main id="main">
 
-</footer>
-```
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+    <footer class="footer">
+
+        <div class="shell footer-inner">
+
+            <div class="footer-info">
+
+                <p class="footer-name">
+                    {{ t.site_name }}
+                </p>
+
+                <p class="footer-address">
+                    {{ t.address }}
+                </p>
+
+            </div>
+
+            <p class="footer-rights">
+                &copy; 2026 &mdash; {{ t.footer_rights }}
+            </p>
+
+        </div>
+
+    </footer>
 
 </body>
+
 </html>
