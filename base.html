@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" dir="{{ direction }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ t.site_name }}{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">{{ 'تخطَّ إلى المحتوى' if lang == 'ar' else 'Skip to content' }}</a>
+
+  <header class="masthead">
+    <div class="shell masthead-inner">
+      <a class="brand" href="{{ url_for('home', lang=lang) }}">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">{{ t.site_name }}</span>
+      </a>
+
+      <nav class="nav" aria-label="{{ t.nav_home }}">
+        <a href="{{ url_for('home', lang=lang) }}">{{ t.nav_home }}</a>
+        <a href="{{ url_for('news_list', lang=lang) }}">{{ t.nav_news }}</a>
+        <a href="{{ url_for('contact', lang=lang) }}">{{ t.nav_contact }}</a>
+        <a class="lang-switch" href="{{ request.path.replace('/' + lang + '/', '/' + other_lang + '/', 1) }}">
+          {{ languages[other_lang].name }}
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <p class="footer-name">{{ t.site_name }}</p>
+      <p class="footer-address">{{ t.address }}</p>
+      <p class="footer-rights">&copy; 2026 &mdash; {{ t.footer_rights }}</p>
+    </div>
+  </footer>
+
+</body>
+</html>

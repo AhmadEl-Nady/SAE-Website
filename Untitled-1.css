@@ -1,0 +1,318 @@
+/* ==========================================================================
+   Ministry site stylesheet
+   Written with CSS logical properties (margin-inline-start, padding-inline,
+   border-inline-start ...) so the whole layout mirrors itself automatically
+   when <html dir="rtl"> is set. No separate Arabic stylesheet is needed.
+   ========================================================================== */
+
+/* 1. Tokens ------------------------------------------------------------- */
+
+:root {
+  --ink:        #12283a;   /* headings, primary text */
+  --ink-soft:   #4a5b6b;   /* secondary text */
+  --paper:      #ffffff;
+  --mist:       #f1f4f6;   /* alternating section background */
+  --rule:       #dbe1e6;   /* hairlines and borders */
+  --accent:     #0e6b5c;   /* links, buttons, focus */
+  --accent-dark:#0a5245;
+  --gold:       #a8802b;   /* small marks only */
+
+  --shell:      72rem;     /* max content width */
+  --gutter:     1.5rem;
+
+  --step-0:     1rem;
+  --step-1:     1.2rem;
+  --step-2:     1.5rem;
+  --step-3:     2rem;
+  --step-4:     2.75rem;
+
+  --radius:     4px;
+}
+
+/* 2. Reset and base ----------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif;
+  font-size: var(--step-0);
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { line-height: 1.25; margin: 0; font-weight: 600; }
+p { margin: 0 0 1rem; }
+ul, dl { margin: 0; padding: 0; list-style: none; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img { max-width: 100%; height: auto; display: block; }
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  inset-block-start: -3rem;
+  inset-inline-start: 1rem;
+  background: var(--ink);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  z-index: 10;
+}
+.skip-link:focus { inset-block-start: 0.5rem; }
+
+/* 3. Layout shell ------------------------------------------------------- */
+
+.shell {
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.shell-narrow { max-width: 42rem; }
+
+/* 4. Header ------------------------------------------------------------- */
+
+.masthead {
+  border-block-end: 1px solid var(--rule);
+  background: var(--paper);
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 5;
+}
+
+.masthead-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 4.5rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ink);
+  font-weight: 600;
+  font-size: var(--step-1);
+}
+.brand:hover { text-decoration: none; }
+
+.brand-mark {
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--gold);
+  flex: none;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 0.95rem;
+}
+.nav a { color: var(--ink-soft); }
+.nav a:hover { color: var(--accent); }
+
+.lang-switch {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 0.3rem 0.8rem;
+  color: var(--ink) !important;
+}
+
+/* 5. Hero --------------------------------------------------------------- */
+
+.hero {
+  background: linear-gradient(180deg, #12283a 0%, #17384f 100%);
+  color: #fff;
+  padding-block: 4.5rem;
+}
+
+.hero-inner { max-width: 44rem; }
+
+.hero-title {
+  font-size: var(--step-4);
+  margin-block-end: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.hero-text {
+  font-size: var(--step-1);
+  color: #cfdce6;
+  max-width: 34rem;
+}
+
+/* 6. Buttons and links -------------------------------------------------- */
+
+.button {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.7rem 1.6rem;
+  border: 0;
+  border-radius: var(--radius);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.button:hover { background: var(--accent-dark); text-decoration: none; }
+
+.text-link {
+  font-weight: 600;
+  border-block-end: 1px solid currentColor;
+}
+.text-link:hover { text-decoration: none; }
+
+/* 7. Sections ----------------------------------------------------------- */
+
+.stats { background: var(--mist); padding-block: 3rem; }
+.news  { padding-block: 3.5rem; }
+
+.section-title {
+  font-size: var(--step-2);
+  margin-block-end: 1.5rem;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.page-head {
+  border-block-end: 1px solid var(--rule);
+  padding-block: 2.5rem;
+}
+.page-title { font-size: var(--step-3); }
+.page-intro { color: var(--ink-soft); margin-block-start: 0.5rem; }
+
+/* 8. Stats -------------------------------------------------------------- */
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1.5rem;
+}
+
+.stat {
+  background: var(--paper);
+  border-radius: var(--radius);
+  border-inline-start: 4px solid var(--gold);
+  padding: 1.25rem 1.5rem;
+}
+
+.stat-value {
+  font-size: var(--step-3);
+  font-weight: 700;
+  color: var(--ink);
+}
+.stat-unit { font-size: var(--step-0); font-weight: 500; color: var(--ink-soft); }
+.stat-label { margin: 0; color: var(--ink-soft); }
+
+/* 9. News --------------------------------------------------------------- */
+
+.news-list { display: grid; gap: 1.75rem; }
+
+.news-item {
+  padding-block-end: 1.75rem;
+  border-block-end: 1px solid var(--rule);
+}
+.news-item:last-child { border-block-end: 0; padding-block-end: 0; }
+
+.news-meta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  margin-block-end: 0.4rem;
+}
+
+.news-sector {
+  background: var(--mist);
+  border-radius: 999px;
+  padding: 0.1rem 0.7rem;
+}
+
+.news-headline { font-size: var(--step-2); margin-block-end: 0.4rem; }
+.news-headline a { color: var(--ink); }
+.news-headline a:hover { color: var(--accent); }
+
+.news-summary { color: var(--ink-soft); margin: 0; max-width: 60ch; }
+
+/* 10. Article ----------------------------------------------------------- */
+
+.article { padding-block: 3rem; }
+.article-title { font-size: var(--step-3); margin-block: 0.5rem 1rem; }
+.article-lead { font-size: var(--step-1); color: var(--ink-soft); }
+.article-body { max-width: 65ch; }
+
+/* 11. Form -------------------------------------------------------------- */
+
+.form-section { padding-block: 3rem; }
+
+.form { display: grid; gap: 1.25rem; }
+
+.field { display: grid; gap: 0.4rem; }
+.field-label { font-weight: 600; font-size: 0.95rem; }
+
+input, textarea {
+  font: inherit;
+  color: inherit;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--paper);
+  inline-size: 100%;
+}
+input:focus, textarea:focus { border-color: var(--accent); }
+
+.notice {
+  background: #e7f3f0;
+  border-inline-start: 4px solid var(--accent);
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--radius);
+}
+
+.button[type="submit"] { justify-self: start; }
+
+/* 12. Footer ------------------------------------------------------------ */
+
+.footer {
+  background: var(--ink);
+  color: #c3d1dc;
+  padding-block: 2.5rem;
+  margin-block-start: 3rem;
+}
+.footer-name { color: #fff; font-weight: 600; margin-block-end: 0.25rem; }
+.footer-address, .footer-rights { margin: 0; font-size: 0.9rem; }
+.footer-rights { margin-block-start: 1rem; color: #8da0ae; }
+
+/* 13. Responsive -------------------------------------------------------- */
+
+@media (max-width: 40rem) {
+  :root { --step-4: 2rem; --step-3: 1.6rem; }
+  .hero { padding-block: 3rem; }
+  .masthead-inner { min-height: auto; padding-block: 0.75rem; }
+  .nav { gap: 1rem; font-size: 0.9rem; }
+  .brand-name { font-size: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
